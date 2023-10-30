@@ -305,7 +305,142 @@ class Solution():
         
             
         return streak
+    
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
         
+        # used_indexes = []
+        # final_list = []
+        
+        # for i in range(len(strs)):
+            
+        #     current_string = strs[i]
+            
+        #     same_strings = []
+            
+        #     letters = []
+        #     for char in current_string:
+        #         letters.append(char)
+            
+        #     if letters == []:
+        #         letters = [""]
+        #     letters = sorted(letters)
+            
+        #     if i not in used_indexes:
+        #         for j in range(len(strs)):
+                    
+        #             check_string = strs[j]
+        #             check_letters = []
+                        
+        #             if i != j and j not in used_indexes:
+                        
+        #                 for character in check_string:
+        #                     check_letters.append(character)
+                        
+        #                 if check_letters == []:
+        #                     check_letters = [""]
+                        
+        #                 check_letters = sorted(check_letters)
+                    
+        #             if letters == check_letters:
+        #                 same_strings.append(check_string)
+        #                 used_indexes.append(j)
+            
+            
+        #     same_strings.append(current_string)
+            
+        #     if i not in used_indexes:
+        #         final_list.append(same_strings)
+            
+        #     used_indexes.append(i)
+            
+        
+        # return final_list
+        
+        # anagram_map = defaultdict(list)
+            
+        # for word in strs:
+        #     sorted_word = ''.join(sorted(word))
+        #     anagram_map[sorted_word].append(word)
+        
+        # return list(anagram_map.values())
+    
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        
+        is_happy = False
+        sum_int = str(n)
+        
+        loop_end = 1000
+        while sum_int != "1":
+            string_list = []
+            for char in sum_int:
+                string_list.append(int(char))
+            
+            print(sum_int)
+            current_sum = 0
+            for i in range(len(string_list)):
+                current_sum = int(current_sum) + int(string_list[i])*int(string_list[i])
+
+            sum_int = str(current_sum)
+            loop_end -= 1
+            if loop_end < 0:
+                break
+        
+        if sum_int == "1":
+            is_happy = True
+            
+        return is_happy
+    
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        
+        hash_table = {}
+        for i in range(len(numbers)):
+            j = i + 1
+            hash_table[numbers[i]] = j
+        
+        for k in range(len(numbers)):
+            difference = target - numbers[k]
+            if difference in hash_table:
+                return sorted([hash_table[difference], k+1])
+        
+        return []
+
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        nums = sorted(nums)
+        
+        length = len(nums) - 1
+        sum_target = 0
+        
+        count = 0
+        while length >= 0:
+            current_int = nums[length]
+            sum_target = sum_target + current_int
+            count += 1
+            if sum_target >= target:
+                return count
+            
+            length -= 1
+        
+        return 0
+    
 if __name__ == "__main__":
     
     #### move array to the right
@@ -385,6 +520,25 @@ if __name__ == "__main__":
     # solution = solution_instance.containsNearbyDuplicate(nums, k)
     # print(solution)
     
-    nums = [1, 0, 2, 1, 3, 100, 101, 103]
-    solution = solution_instance.longestConsecutive(nums)
+    # nums = [1, 0, 2, 1, 3, 100, 101, 103]
+    # solution = solution_instance.longestConsecutive(nums)
+    # print(solution)
+    
+    # strs = ["",""]
+    # solution = solution_instance.groupAnagrams(strs)
+    # print(solution)
+    
+    
+    # n = 19
+    # solution = solution_instance.isHappy(n)
+    # print(solution)
+    
+    # numbers = [1, 3]
+    # target = 4
+    # solution = solution_instance.twoSum(numbers, target)
+    # print(solution)
+    
+    numbers = [12,28,83,4,25,26,25,2,25,25,25,12]
+    target = 213
+    solution = solution_instance.minSubArrayLen(target, numbers)
     print(solution)
