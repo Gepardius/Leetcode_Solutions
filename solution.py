@@ -370,76 +370,75 @@ class Solution():
     
     def isHappy(self, n):
         """
-        :type n: int
-        :rtype: bool
+        Determine if a number is a happy number.
+        :param n: int, the number to check
+        :return: bool, True if the number is a happy number, False otherwise
         """
-        
         is_happy = False
-        sum_int = str(n)
-        
+        sum_int = str(n)  # Convert the number to a string to process its digits
+
         loop_end = 1000
         while sum_int != "1":
             string_list = []
             for char in sum_int:
-                string_list.append(int(char))
-            
-            print(sum_int)
+                string_list.append(int(char))  # Convert the string digits back to integers
+
             current_sum = 0
             for i in range(len(string_list)):
-                current_sum = int(current_sum) + int(string_list[i])*int(string_list[i])
+                current_sum += int(string_list[i]) ** 2  # Calculate the sum of squared digits
 
             sum_int = str(current_sum)
             loop_end -= 1
             if loop_end < 0:
                 break
-        
+
         if sum_int == "1":
             is_happy = True
-            
+
         return is_happy
-    
+
     def twoSum(self, numbers, target):
         """
-        :type numbers: List[int]
-        :type target: int
-        :rtype: List[int]
+        Find the indices of two numbers in a list that add up to a given target.
+        :param numbers: List[int], a list of integers
+        :param target: int, the target sum
+        :return: List[int], a list containing the indices of the two numbers
         """
-        
         hash_table = {}
         for i in range(len(numbers)):
             j = i + 1
-            hash_table[numbers[i]] = j
-        
+            hash_table[numbers[i]] = j  # Create a hash table to store the numbers and their indices
+
         for k in range(len(numbers)):
             difference = target - numbers[k]
             if difference in hash_table:
-                return sorted([hash_table[difference], k+1])
-        
+                return sorted([hash_table[difference], k + 1])  # Return the sorted indices of the two numbers
+
         return []
 
     def minSubArrayLen(self, target, nums):
         """
-        :type target: int
-        :type nums: List[int]
-        :rtype: int
+        Find the minimum length of a subarray in a list that has a sum greater than or equal to the target.
+        :param target: int, the target sum
+        :param nums: List[int], a list of integers
+        :return: int, the minimum length of the subarray, or 0 if no such subarray exists
         """
-        
-        nums = sorted(nums)
-        
+        nums = sorted(nums)  # Sort the list in ascending order
+
         length = len(nums) - 1
         sum_target = 0
-        
+
         count = 0
         while length >= 0:
             current_int = nums[length]
-            sum_target = sum_target + current_int
+            sum_target += current_int
             count += 1
             if sum_target >= target:
-                return count
-            
+                return count  # Return the length when the sum is greater than or equal to the target
+
             length -= 1
-        
-        return 0
+
+        return 0  # Return 0 if no subarray is found
     
 if __name__ == "__main__":
     
