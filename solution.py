@@ -440,6 +440,48 @@ class Solution():
 
         return 0  # Return 0 if no subarray is found
     
+    def rotate(self, nums, k):
+        
+        length = len(nums)
+        if length == 0:
+            return nums
+        elif k == 0:
+            return nums
+        
+        rotations = k % length
+        
+        if rotations == 0:
+            return nums
+        else:
+            
+            nums[:] = nums[-rotations:] + nums[:-k]
+        
+        return nums
+
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
+        """
+        
+        nums1 = nums1[:m]
+        nums2 = nums2[:n]
+        
+        nums1 += nums2
+        
+        n = len(nums1)
+        for i in range(n):
+            for j in range(0, n - i - 1):
+                if nums1[j] > nums1[j + 1]:
+                    # Swap the elements if they are in the wrong order
+                    nums1[j], nums1[j + 1] = nums1[j + 1], nums1[j]
+        
+        return nums1
+    
+        
 if __name__ == "__main__":
     
     #### move array to the right
@@ -537,7 +579,20 @@ if __name__ == "__main__":
     # solution = solution_instance.twoSum(numbers, target)
     # print(solution)
     
-    numbers = [12,28,83,4,25,26,25,2,25,25,25,12]
-    target = 213
-    solution = solution_instance.minSubArrayLen(target, numbers)
+    # numbers = [12,28,83,4,25,26,25,2,25,25,25,12]
+    # target = 213
+    # solution = solution_instance.minSubArrayLen(target, numbers)
+    # print(solution)
+    
+    # nums = [12, 1]
+    # k = 1
+    
+    # solution = solution_instance.rotate(nums, 1)
+    # print(solution)
+    nums1 = [0]
+    m = 0
+    nums2 = [1]
+    n = 1
+
+    solution = solution_instance.merge(nums1, m, nums2, n)
     print(solution)
